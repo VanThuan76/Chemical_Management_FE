@@ -17,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <link rel="icon" href="/logo_flash.png" />
-      <body className={clsx("font-roboto antialiased", fontRoboto.className)}>
+      <body
+        className={clsx("font-roboto antialiased", fontRoboto.className)}
+        suppressHydrationWarning
+      >
         <Providers>
           {children}
         </Providers>

@@ -1,4 +1,5 @@
 'use client'
+import { Suspense } from "react";
 import { Layout } from "@/components/layout/layout";
 
 const AdminLayout = ({
@@ -7,9 +8,11 @@ const AdminLayout = ({
     children: React.ReactNode
 }) => {
     return (
-        <Layout>
-            {children}
-        </Layout>
+        <Suspense fallback={<div>loading...</div>}>
+            <Layout>
+                {children}
+            </Layout>
+        </Suspense>
     );
 }
 
