@@ -1,8 +1,6 @@
 import { Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
-import { FeedbackIcon } from "../icons/navbar/feedback-icon";
-import { GithubIcon } from "../icons/navbar/github-icon";
-import { SupportIcon } from "../icons/navbar/support-icon";
-import { SearchIcon } from "../icons/searchicon";
+import { Github, MessageCircleQuestion, Search } from "lucide-react";
+
 import { BurguerButton } from "./burguer-button";
 import { NotificationsDropdown } from "./notifications-dropdown";
 import { UserDropdown } from "./user-dropdown";
@@ -26,7 +24,7 @@ export const NavbarWrapper = ({ children }: Props) => {
         </NavbarContent>
         <NavbarContent className="w-full max-md:hidden">
           <Input
-            startContent={<SearchIcon />}
+            startContent={<Search color="#555" className="w-[20px] h-[20px]" />}
             isClearable
             className="w-full"
             classNames={{
@@ -43,14 +41,14 @@ export const NavbarWrapper = ({ children }: Props) => {
           <NotificationsDropdown />
 
           <div className="max-md:hidden">
-            <SupportIcon />
+            <MessageCircleQuestion color="#555" className="w-[20px] h-[20px]" />
           </div>
 
           <Link
             href="https://github.com/VanThuan76"
             target={"_blank"}
           >
-            <GithubIcon />
+            <Github color="#555" className="w-[20px] h-[20px]" />
           </Link>
           <NavbarContent>
             <UserDropdown />

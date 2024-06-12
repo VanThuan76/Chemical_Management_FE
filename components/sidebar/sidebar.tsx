@@ -11,6 +11,7 @@ import { Sidebar } from "./sidebar.styles";
 import { SidebarItem } from "./sidebar-item";
 import { SidebarMenu } from "./sidebar-menu";
 import { CompaniesDropdown } from "./companies-dropdown";
+import { CollapseItems } from "./collapse-items";
 
 export const SidebarWrapper = () => {
   const pathname = usePathname();
@@ -52,15 +53,25 @@ export const SidebarWrapper = () => {
             ) : (
               <>
                 <SidebarMenu title="Main Menu">
-                  {validMenus.map((menu, index) => (
-                    <SidebarItem
-                      key={index}
-                      title={menu.title}
-                      icon={menu.icon}
-                      isActive={checkPathUrl(pathname, menu.href)}
-                      href={menu.href}
-                    />
-                  ))}
+                  {validMenus.map((menu, index) =>
+                    menu.items ?
+                      (
+                        <CollapseItems
+                          key={index}
+                          icon={menu.icon}
+                          items={menu.items}
+                          title={menu.title}
+                        />
+                      )
+                      : (
+                        <SidebarItem
+                          key={index}
+                          title={menu.title}
+                          icon={menu.icon}
+                          isActive={checkPathUrl(pathname, menu.href)}
+                          href={menu.href}
+                        />
+                      ))}
                 </SidebarMenu>
                 <SidebarMenu title="Security">
                   <SidebarItem

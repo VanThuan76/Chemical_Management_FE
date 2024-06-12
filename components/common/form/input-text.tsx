@@ -7,7 +7,7 @@ interface InputTextProps<T extends FieldValues> {
     form: UseFormReturn<T>;
     name: Path<T>;
     label: string;
-    placeholder: string;
+    placeholder?: string;
 }
 
 const InputText = <T extends FieldValues>({ form, name, label, placeholder }: InputTextProps<T>) => {

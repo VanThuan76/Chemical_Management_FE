@@ -1,7 +1,7 @@
 'use client'
 import { getCookie } from 'cookies-next';
 import { useMemo } from 'react';
-import { Boxes, Container, Factory, Home, Key, Package2, Shield, Users } from 'lucide-react';
+import { Boxes, Container, Factory, Home, Key, Package2, Shield, Users, UsersRound } from 'lucide-react';
 
 import { APP_SAVE_KEY } from "@/shared/constant"
 
@@ -9,6 +9,7 @@ export interface IAppMenu {
     title: string;
     icon: React.ReactNode;
     href: string;
+    items?: IAppMenu[];
 }
 
 export const APP_MENUS = [
@@ -16,6 +17,12 @@ export const APP_MENUS = [
         title: "Trang chủ",
         icon: <Home className="w-[18px] h-[18px]" />,
         href: "/admin",
+        roleId: [167, 2, 3]
+    },
+    {
+        title: "Quản lý khách hàng",
+        icon: <UsersRound className="w-[18px] h-[18px]" />,
+        href: "/admin/customers",
         roleId: [167, 2, 3]
     },
     {
@@ -31,35 +38,37 @@ export const APP_MENUS = [
         roleId: [167, 2, 3]
     },
     {
-        title: "Quản lý phân quyền",
-        icon: <Shield className="w-[18px] h-[18px]" />,
-        href: "/admin/permissions",
-        roleId: [167, 2, 3]
-    },
-    {
-        title: "Quản lý nơi sản xuất",
-        icon: <Factory className="w-[18px] h-[18px]" />,
-        href: "/admin/manufacturers",
-        roleId: [167, 2, 3]
-    },
-    {
-        title: "Quản lý nhà cung cấp",
-        icon: <Container className="w-[18px] h-[18px]" />,
-        href: "/admin/suppliers",
-        roleId: [167, 2, 3]
-    },
-    {
-        title: "Quản lý thể loại",
-        icon: <Boxes className="w-[18px] h-[18px]" />,
-        href: "/admin/categories",
-        roleId: [167, 2, 3]
-    },
-    {
-        title: "Quản lý sản phẩm",
+        title: "Quản lý SP",
         icon: <Package2 className="w-[18px] h-[18px]" />,
-        href: "/admin/products",
-        roleId: [167, 2, 3]
-    }
+        href: "#",
+        roleId: [167, 2, 3],
+        items: [
+            {
+                title: "Quản lý hàng hoá",
+                icon: <Package2 className="w-[18px] h-[18px]" />,
+                href: "/admin/chemicals",
+                roleId: [167, 2, 3]
+            },
+            {
+                title: "Quản lý nơi sản xuất",
+                icon: <Factory className="w-[18px] h-[18px]" />,
+                href: "/admin/manufacturers",
+                roleId: [167, 2, 3]
+            },
+            {
+                title: "Quản lý nhà cung cấp",
+                icon: <Container className="w-[18px] h-[18px]" />,
+                href: "/admin/suppliers",
+                roleId: [167, 2, 3]
+            },
+            {
+                title: "Quản lý thể loại",
+                icon: <Boxes className="w-[18px] h-[18px]" />,
+                href: "/admin/categories",
+                roleId: [167, 2, 3]
+            }
+        ],
+    },
 ]
 
 export function ValidMenus() {

@@ -8,7 +8,9 @@ export interface IRole {
     slug: string;
     permissions: Permission[];
 }
-
+export interface IAddRole {
+    name: string
+}
 interface Permission {
     id: number;
     table_key: string;

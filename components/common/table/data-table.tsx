@@ -24,6 +24,7 @@ import { capitalize } from "@/shared/utils/table";
 import { buildQueryStringActionTable, encrypt } from "@/shared/utils/helpers/url";
 import { RenderCell } from "./render-cell";
 import DataTablePagination from "./data-table-pagination";
+import DateRangePicker from "../date-range-picker";
 
 
 interface DataTableProps<TData> {
@@ -145,6 +146,18 @@ export default function DataTable<TData>({
                                         {capitalize(filter.name)}
                                     </DropdownItem>
                                 ))}
+                            </DropdownMenu>
+                        </Dropdown>
+                        <Dropdown>
+                            <DropdownTrigger className="hidden sm:flex">
+                                <Button endContent={<ChevronDown className="text-small" />} variant="flat">
+                                    Thời gian
+                                </Button>
+                            </DropdownTrigger>
+                            <DropdownMenu variant="faded" aria-label="DateRange Actions">
+                                <DropdownItem isReadOnly className="px-3">
+                                    <DateRangePicker />
+                                </DropdownItem>
                             </DropdownMenu>
                         </Dropdown>
                         <Dropdown>

@@ -1,13 +1,10 @@
 'use client'
 import { useState } from 'react';
 
-import { useGetAllRole } from '@/server/actions/role-permission-action';
-import { useGetListPaginationUser } from '@/server/actions/users-action';
+import { formatDateBasic, formatDateOriginal } from '@/shared/utils/helpers/date';
+import { useGetListPaginationCustomer } from '@/server/actions/customers-action';
 
-import { GENDER } from '@/shared/constant';
-import { formatDateBasic } from '@/shared/utils/helpers/date';
-
-import { AddUser } from '@/components/users/add-user';
+import { AddCustomer } from '@/components/customers/add-customer';
 import { UpdateUser } from '@/components/users/update-user';
 import DataTable from '@/components/common/table/data-table';
 import ViewUser from '@/components/users/view-user';
@@ -16,32 +13,35 @@ const columns = [
     { name: "ID", uid: "id", sortable: true },
     { name: "Tên", uid: "name", sortable: true },
     { name: "Email", uid: "email" },
-    { name: "Giới tính", uid: "gender", sortable: true },
-    { name: "Vai trò", uid: "role" },
+    { name: "Số điện thoại", uid: "phone_number", sortable: true },
+    { name: "Sinh nhật", uid: "birthday" },
+    { name: "Địa chỉ", uid: "address" },
+    { name: "Loại KH", uid: "type" },
     { name: "Ngày tạo", uid: "created_at", sortable: true },
     { name: "Ngày cập nhật", uid: "updated_at", sortable: true },
     { name: "Hành động", uid: "actions" },
 ];
 
-const UsersPage = () => {
+const CustomersPage = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const { data: users, tableConfig } = useGetListPaginationUser();
-    const { data: roles } = useGetAllRole()
+    const { data: customers, tableConfig } = useGetListPaginationCustomer();
 
-    const convertData = users && users.data.map(user => ({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        gender: GENDER[user.gender],
-        role: user.role.name,
-        created_at: formatDateBasic(user.created_at),
-        updated_at: formatDateBasic(user.updated_at),
+    const convertData = customers && customers.data.map(customer => ({
+        id: customer.id,
+        name: customer.name,
+        email: customer.email,
+        phone_number: customer.phone_number,
+        birthday: formatDateOriginal(customer.birthday),
+        address: customer.address,
+        type: customer.type,
+        created_at: formatDateBasic(customer.created_at),
+        updated_at: formatDateBasic(customer.updated_at),
     }));
 
-    const quickFilters = roles && roles.data.map(role => ({
-        name: role.name,
-        uid: String(role.name.toLowerCase()),
+    const quickFilters = customers && customers.data.map(customer => ({
+        name: String(customer.phone_number),
+        uid: String(customer.phone_number),
     }))
 
     function filterData(data: any[], hasSearchFilter: boolean, filterValue: string, quickFilter: string | "all"): any[] {
@@ -55,8 +55,8 @@ const UsersPage = () => {
         }
 
         if (quickFilter !== "all" && Array.from(quickFilter).length !== quickFilters?.length) {
-            filteredData = filteredData.filter(user =>
-                Array.from(quickFilter).includes((user.role).toLowerCase())
+            filteredData = filteredData.filter(data =>
+                Array.from(quickFilter).includes((data.phone_number))
             );
         }
         return filteredData;
@@ -70,11 +70,11 @@ const UsersPage = () => {
                 data={convertData}
                 filterData={filterData}
                 quickFilters={{
-                    fieldName: 'Vai trò',
+                    fieldName: 'Số điện thoại',
                     data: quickFilters
                 }}
                 modalUpdate={<UpdateUser />}
-                modalCreate={<AddUser />}
+                modalCreate={<AddCustomer />}
                 triggerView={{
                     setIsOpen,
                     isOpen
@@ -86,4 +86,4 @@ const UsersPage = () => {
     );
 }
 
-export default UsersPage;
+export default CustomersPage;
